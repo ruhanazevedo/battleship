@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability in Naval Battle, please **do not open a public issue**.
+If you discover a security vulnerability in Battleship, please **do not open a public issue**.
 
 Report it privately by emailing:
 
@@ -31,7 +31,7 @@ Include in your report:
 
 ## Scope
 
-Naval Battle is a **desktop tool** that runs entirely offline on the user's machine. It reads local PDF files and does not:
+Battleship is a **desktop tool** that runs entirely offline on the user's machine. It reads local PDF files and does not:
 
 - Connect to any external server
 - Transmit data of any kind

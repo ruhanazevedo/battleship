@@ -30,7 +30,7 @@ public class LauncherWindow extends JFrame {
     }
 
     private void buildUI() {
-        setTitle("Naval Battle");
+        setTitle("Battleship");
         setSize(420, 260);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -40,7 +40,7 @@ public class LauncherWindow extends JFrame {
         content.setBorder(BorderFactory.createEmptyBorder(36, 48, 32, 48));
 
         // Title block
-        JLabel title    = new JLabel("Naval Battle", SwingConstants.CENTER);
+        JLabel title    = new JLabel("Battleship", SwingConstants.CENTER);
         title.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 24));
 
         JLabel subtitle = new JLabel("PDF Coordinate Picker for iText Developers", SwingConstants.CENTER);
