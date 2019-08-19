@@ -160,3 +160,7 @@ Run `mvn test` before submitting.
 ---
 
 [Ruhan Azevedo](https://github.com/ruhanazevedo)
+
+<a href="https://www.buymeacoffee.com/ruhanazevedo" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height="50">
+</a>
