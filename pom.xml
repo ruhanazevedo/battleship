@@ -8,9 +8,9 @@
     <artifactId>naval-battle</artifactId>
     <version>3.0.0</version>
 
-    <name>Naval Battle</name>
+    <name>Battleship</name>
     <description>PDF coordinate picker for iText developers</description>
-    <url>https://github.com/ruhanazevedo/naval-battle</url>
+    <url>https://github.com/ruhanazevedo/battleship</url>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -44,7 +44,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <finalName>naval-battle</finalName>
+                    <finalName>battleship</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>

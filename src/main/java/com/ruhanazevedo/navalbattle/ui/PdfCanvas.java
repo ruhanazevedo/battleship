@@ -59,6 +59,7 @@ public class PdfCanvas extends JPanel {
     /** Listener called when the user picks a coordinate or hovers. */
     public interface PickListener {
         void onPick(CoordinatePick pick);
+        void onClickOutside();
         void onHover(float ptX, float ptY);
         void onHoverOutside();
     }
@@ -194,7 +195,10 @@ public class PdfCanvas extends JPanel {
 
     private void handleClick(int screenX, int screenY) {
         float[] pts = screenToPoints(screenX, screenY);
-        if (pts == null) return;
+        if (pts == null) {
+            if (pickListener != null) pickListener.onClickOutside();
+            return;
+        }
 
         markerScreenPos = new Point(screenX, screenY);
         repaint();

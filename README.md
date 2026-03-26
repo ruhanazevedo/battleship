@@ -1,12 +1,12 @@
-# Naval Battle
+# Battleship
 
 > **PDF coordinate picker for iText developers.**
 > Click anywhere on a PDF — get the exact iText `X, Y` coordinates instantly.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Java 11+](https://img.shields.io/badge/java-11%2B-orange.svg)](https://adoptium.net/)
-[![Known Vulnerabilities](https://snyk.io/test/github/ruhanazevedo/naval-battle/badge.svg)](https://snyk.io/test/github/ruhanazevedo/naval-battle)
-[![Release](https://img.shields.io/github/v/release/ruhanazevedo/naval-battle)](https://github.com/ruhanazevedo/naval-battle/releases)
+[![Known Vulnerabilities](https://snyk.io/test/github/ruhanazevedo/battleship/badge.svg)](https://snyk.io/test/github/ruhanazevedo/battleship)
+[![Release](https://img.shields.io/github/v/release/ruhanazevedo/battleship)](https://github.com/ruhanazevedo/battleship/releases)
 
 ---
 
@@ -14,7 +14,7 @@
 
 iText places elements using a coordinate system with **(0, 0) at the bottom-left** of the page, measured in **PDF points** (1 pt = 1/72 inch). Getting those coordinates has always been tedious — standard PDF viewers show pixel positions that mean nothing to iText, so developers resort to trial-and-error or spreadsheet math.
 
-**Naval Battle solves this:** open any PDF, click the exact spot, and get ready-to-paste iText coordinates.
+**Battleship solves this:** open any PDF, click the exact spot, and get ready-to-paste iText coordinates.
 
 ---
 
@@ -37,12 +37,12 @@ iText places elements using a coordinate system with **(0, 0) at the bottom-left
 
 ## Download
 
-**[→ Download the latest release JAR](https://github.com/ruhanazevedo/naval-battle/releases/latest)**
+**[→ Download the latest release JAR](https://github.com/ruhanazevedo/battleship/releases/latest)**
 
 Requires Java 11 or later. Double-click the JAR to launch, or:
 
 ```bash
-java -jar naval-battle.jar
+java -jar battleship.jar
 ```
 
 ---
@@ -50,10 +50,10 @@ java -jar naval-battle.jar
 ## Build from source
 
 ```bash
-git clone https://github.com/ruhanazevedo/naval-battle.git
-cd naval-battle
+git clone https://github.com/ruhanazevedo/battleship.git
+cd battleship
 mvn package -q
-java -jar target/naval-battle.jar
+java -jar target/battleship.jar
 ```
 
 Run tests:

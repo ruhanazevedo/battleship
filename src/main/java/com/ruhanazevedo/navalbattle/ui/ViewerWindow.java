@@ -67,7 +67,7 @@ public class ViewerWindow extends JFrame {
     // ── Build UI ──────────────────────────────────────────────────────────────
 
     private void buildUI() {
-        setTitle("Naval Battle \u2014 " + pdfFile.getName());
+        setTitle("Battleship \u2014 " + pdfFile.getName());
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         UIUtil.applyIcon(this);
 
@@ -125,15 +125,21 @@ public class ViewerWindow extends JFrame {
             @Override
             public void onHover(float ptX, float ptY) {
                 statusLabel.setText(String.format(
-                    "Cursor \u2014 X: %.1f  Y: %.1f  \u2014  page %d",
+                    "X: %.1f  Y: %.1f  (page %d)",
                     ptX, ptY, pageIndex + 1));
+                statusLabel.setForeground(UIManager.getColor("Label.disabledForeground"));
+            }
+
+            @Override
+            public void onClickOutside() {
+                statusLabel.setText("Out of range");
                 statusLabel.setForeground(UIManager.getColor("Label.disabledForeground"));
             }
 
             @Override
             public void onHoverOutside() {
                 if (history.isEmpty()) {
-                    statusLabel.setText("Click anywhere on the PDF to get iText coordinates");
+                    statusLabel.setText("Select your target");
                     statusLabel.setForeground(UIManager.getColor("Label.disabledForeground"));
                 }
             }
@@ -151,7 +157,7 @@ public class ViewerWindow extends JFrame {
         historyList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         JScrollPane historySP = new JScrollPane(historyList);
-        historySP.setBorder(BorderFactory.createTitledBorder("History"));
+        historySP.setBorder(BorderFactory.createTitledBorder("Targets"));
         historySP.setPreferredSize(new Dimension(200, 0));
 
         // Right-click context menu on history list
@@ -180,7 +186,7 @@ public class ViewerWindow extends JFrame {
             historyModel.clear();
             exportBtn.setEnabled(false);
             copyBtn.setEnabled(false);
-            statusLabel.setText("Click anywhere on the PDF to get iText coordinates");
+            statusLabel.setText("Select your target");
             statusLabel.setForeground(UIManager.getColor("Label.disabledForeground"));
         });
 
@@ -202,7 +208,7 @@ public class ViewerWindow extends JFrame {
         split.setContinuousLayout(true);
 
         // ── Status bar ────────────────────────────────────────────────────────
-        statusLabel = new JLabel("Click anywhere on the PDF to get iText coordinates");
+        statusLabel = new JLabel("Select your target");
         statusLabel.setBorder(new EmptyBorder(6, 12, 6, 8));
         statusLabel.setForeground(UIManager.getColor("Label.disabledForeground"));
 
@@ -337,7 +343,7 @@ public class ViewerWindow extends JFrame {
         historyModel.addElement(pick);
 
         statusLabel.setText(String.format(
-            "X: %.1ff,  Y: %.1ff  \u2014  page %d  (iText coordinates)",
+            "Target acquired  \u2192  X: %.1ff,  Y: %.1ff  (page %d)",
             pick.getX(), pick.getY(), pick.getPage()));
         statusLabel.setForeground(UIManager.getColor("Label.foreground"));
 
