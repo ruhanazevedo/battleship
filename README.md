@@ -1,7 +1,6 @@
 # Battleship
 
-> **PDF coordinate picker for iText developers.**
-> Click anywhere on a PDF — get the exact iText `X, Y` coordinates instantly.
+PDF coordinate picker for iText developers.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Java 11+](https://img.shields.io/badge/java-11%2B-orange.svg)](https://adoptium.net/)
@@ -10,11 +9,13 @@
 
 ---
 
-## The problem
+## Why this exists
 
-iText places elements using a coordinate system with **(0, 0) at the bottom-left** of the page, measured in **PDF points** (1 pt = 1/72 inch). Getting those coordinates has always been tedious — standard PDF viewers show pixel positions that mean nothing to iText, so developers resort to trial-and-error or spreadsheet math.
+If you've worked with iText, you know the pain. You need to place a text element at a specific position on a PDF, so you open the file in a viewer, eyeball the spot, guess some coordinates, run the code, check the result, it's off, guess again, run again. Over and over.
 
-**Battleship solves this:** open any PDF, click the exact spot, and get ready-to-paste iText coordinates.
+The issue is that iText uses its own coordinate system: **(0, 0) starts at the bottom-left** of the page, measured in PDF points (1 pt = 1/72 inch). Standard PDF viewers don't show that. They show pixels, or percentages, or nothing at all. There's no quick way to just point at a spot and know where it is in iText terms.
+
+I got tired of the guessing loop while working on a project that generated a lot of PDF documents with precisely placed elements. So I built Battleship: open your PDF, click the exact spot you want, and get the coordinate ready to paste.
 
 ---
 
@@ -22,24 +23,24 @@ iText places elements using a coordinate system with **(0, 0) at the bottom-left
 
 | | |
 |---|---|
-| **Accurate coordinates** | Derived from actual PDF page dimensions via PDFBox — no approximations, no magic constants |
-| **Drag-and-drop** | Drop a `.pdf` onto the launcher to open it immediately |
-| **Zoom** | Ctrl+scroll, Ctrl+=/−/0, or toolbar buttons (25%–400%) |
-| **Click marker** | Red crosshair persists at the last picked position on the PDF |
-| **Live hover tracking** | Status bar updates iText coordinates as you move the cursor |
-| **Coordinate history** | Every pick in the session is listed in a collapsible sidebar |
-| **Export** | JSON, CSV, or ready-to-paste iText 7 Java code per pick |
-| **Right-click history** | Copy selected picks as Java snippet or JSON; clear all |
-| **Keyboard navigation** | ← → arrow keys to move between pages |
-| **Remembers last directory** | File chooser reopens where you left off |
+| **Accurate coordinates** | Derived directly from the PDF page dimensions via PDFBox, no approximations or magic constants |
+| **Drag and drop** | Drop a `.pdf` onto the launcher to open it |
+| **Zoom** | Ctrl+scroll, Ctrl+= / Ctrl+- / Ctrl+0, or toolbar buttons (25% to 400%) |
+| **Click marker** | Red crosshair stays on the last picked position so you don't lose track |
+| **Live hover** | Status bar shows the iText coordinate under your cursor as you move |
+| **Target history** | Every pick in the session is listed in a sidebar |
+| **Export** | Copy as JSON, CSV, or ready-to-paste iText 7 Java code |
+| **Right-click menu** | Copy selected picks from the sidebar as Java or JSON |
+| **Keyboard navigation** | Left/right arrow keys to move between pages |
+| **Remembers last folder** | File chooser reopens where you left off |
 
 ---
 
 ## Download
 
-**[→ Download the latest release JAR](https://github.com/ruhanazevedo/battleship/releases/latest)**
+**[Download the latest release](https://github.com/ruhanazevedo/battleship/releases/latest)**
 
-Requires Java 11 or later. Double-click the JAR to launch, or:
+Requires Java 11 or later. Run with:
 
 ```bash
 java -jar battleship.jar
@@ -64,27 +65,29 @@ mvn test
 
 ---
 
-## Usage
+## How to use
 
-### 1 — Open a PDF
-Click **Open PDF…** or drag-and-drop a `.pdf` file onto the launcher.
+**1. Open a PDF**
 
-### 2 — Pick a coordinate
-Click anywhere on the rendered page. The status bar shows:
+Click **Open PDF...** on the launcher, or drag and drop a file directly onto the window.
+
+**2. Pick a coordinate**
+
+Click anywhere on the rendered page. The status bar shows the iText coordinates for that spot:
 
 ```
-X: 72.5f,  Y: 144.0f  —  page 1  (iText coordinates)
+Target acquired  ->  X: 72.5f,  Y: 144.0f  (page 1)
 ```
 
-A red crosshair marks the picked position on the page.
+A red crosshair marks the position on the page.
 
-### 3 — Copy or export
+**3. Copy or export**
 
-- **Copy** — copies the last pick as an iText 7 snippet:
+- **Copy** copies the last pick as an iText 7 snippet:
   ```java
   element.setFixedPosition(1, 72.5f, 144.0f);
   ```
-- **Export…** — export all picks from the session:
+- **Export...** lets you export everything picked in the session:
 
   | Format | Output |
   |---|---|
@@ -92,34 +95,34 @@ A red crosshair marks the picked position on the page.
   | CSV | `page,x,y` rows |
   | Java | `element.setFixedPosition(page, x, y);` per pick |
 
-- **Right-click** any item in the history sidebar for per-pick copy options.
+- **Right-click** any item in the sidebar to copy individual picks or clear the list.
 
-### Navigation & zoom
+**Navigation and zoom**
 
-| Action | How |
+| Action | Shortcut |
 |---|---|
-| Previous / next page | ← → arrow keys, or toolbar buttons |
-| Zoom in / out | Ctrl+scroll, Ctrl+= / Ctrl+− |
+| Previous / next page | Left / Right arrow keys or toolbar |
+| Zoom in / out | Ctrl+scroll or Ctrl+= / Ctrl+- |
 | Reset zoom | Ctrl+0 |
 
 ---
 
 ## Coordinate system
 
-iText measures from the **bottom-left corner** of the page.
+iText measures from the bottom-left corner of the page. If you click near the top-left of an A4 page, Y will be close to 842 (the full page height), not close to 0.
 
 ```
-(0, pageH) ────────────────── (pageW, pageH)
-     │                               │
-     │       iText coordinate        │
-     │           space               │
-     │                               │
-   (0, 0) ──────────────── (pageW, 0)
+(0, pageH) ────────────── (pageW, pageH)
+     |                           |
+     |      iText coordinates    |
+     |      origin at bottom     |
+     |                           |
+   (0, 0) ──────────── (pageW, 0)
 ```
 
 Common page sizes in PDF points:
 
-| Format | Width (pt) | Height (pt) |
+| Format | Width | Height |
 |---|---|---|
 | A4 | 595 | 842 |
 | US Letter | 612 | 792 |
@@ -127,13 +130,13 @@ Common page sizes in PDF points:
 
 ---
 
-## Tech stack
+## Stack
 
-- **Java 11** — cross-platform desktop
-- **Apache PDFBox 2** — PDF rendering and page metadata
-- **FlatLaf** — modern dark Swing look-and-feel
-- **Jackson** — JSON export
-- **JUnit 5** — coordinate math and export tests
+- Java 11
+- Apache PDFBox 2 for rendering and page metadata
+- FlatLaf for the dark UI
+- Jackson for JSON export
+- JUnit 5 for coordinate math and export tests
 
 ---
 
@@ -141,12 +144,12 @@ Common page sizes in PDF points:
 
 Bug reports and pull requests are welcome.
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feat/my-feature`)
+1. Fork the repo
+2. Create a branch (`git checkout -b feat/my-feature`)
 3. Commit your changes
 4. Open a pull request
 
-Please make sure `mvn test` passes before submitting.
+Run `mvn test` before submitting.
 
 ---
 
@@ -156,10 +159,4 @@ Please make sure `mvn test` passes before submitting.
 
 ---
 
-## Author
-
 [Ruhan Azevedo](https://github.com/ruhanazevedo)
-
-<a href="https://www.buymeacoffee.com/ruhanazevedo" target="_blank">
-  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" height="50">
-</a>
